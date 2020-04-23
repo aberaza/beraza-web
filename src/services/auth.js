@@ -1,4 +1,4 @@
-import { google } from '../components/dev-oauth.json';
+import { google } from '../components/dev.oauth.json';
 
 var _auth = null,
   gapi;
@@ -19,6 +19,7 @@ class GoogleAuthService extends EventTarget {
       this.userProfile = null;
       this.authResponse = null;
 
+      console.log(process.env);
       GoogleAuthService._instance = this;
     }
     return GoogleAuthService._instance;
