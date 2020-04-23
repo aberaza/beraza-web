@@ -6,30 +6,48 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master, int ]
   pull_request:
     branches: [ master, int ]
+    types
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
-    name: Test on node ${{matrix.node_version }} and $ {{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Test on Node ${{matrix.node_version }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version: ['10', '12']
-        os: [ubuntu-latest, windows-latest]
-      
+        node_version: [12.x]
+        os: [ubuntu-latest]
+
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node_version }}
         uses: action/setup-node@v1
         with:
           node_version: ${{ matrix.node_version }}
-      - name: npm instal and test
-        run: |
-           echo Instalando dependencias
-           npm install
-           echo Ejecutando tests
-           npm test
+      - name: npm ci / install
+        run: npm ci
+      - name: tests
+        run: npm test
+        env:
+          CI: true
 
+  build-and-deploy:
+    name: Compilar en Node ${{ matrix.node_version }} y desplegar sobre AWS S3
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: ['12.x']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Instalar dependencias node
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Copiar/Desplegar a AWS S3
+        run: |
+          echo Aquí deberían ir la config y comandos de aws s

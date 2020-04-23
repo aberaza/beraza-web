@@ -1,0 +1,29 @@
+# This workflow is in charge of testing each pull request
+name: CI Test Workflow
+on: [pull_request]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    name: Test on Node ${{matrix.node_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: action/setup-node@v1
+        with:
+          node_version: ${{ matrix.node_version }}
+
+      - name: npm ci / install
+        run: npm ci
+
+      - name: tests
+        run: npm test
+        env:
+          CI: true

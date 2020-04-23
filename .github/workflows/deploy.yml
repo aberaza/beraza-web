@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+
+  jobs:
+    build-and-deploy:
+      name: Compilar en Node ${{ matrix.node_version }} y desplegar sobre AWS S3
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node_version: ['12.x']
+      steps:
+        - name: Checkout
+          uses: actions/checkout@master
+        - name: Instalar dependencias node
+          run: npm install
+        - name: Build
+          run: npm run build
+        - name: Copiar/Desplegar a AWS S3
+          run: |
+            echo Aquí deberían ir la config y comandos de aws s3+
