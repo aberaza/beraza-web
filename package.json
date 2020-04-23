@@ -7,7 +7,7 @@
     "start": "npx preact watch",
     "start:dev": "npx preact watch",
     "start:prod": "npx preact watch",
-    "build": "npx preact build",
+    "build": "npx preact build --no-prerender",
     "serve": "npx sirv build --cors --single",
     "dev": "npx preact watch",
     "lint": "npx eslint src",
