@@ -4,20 +4,29 @@ on:
   push:
     branches: [ master ]
 
-  jobs:
-    build-and-deploy:
-      name: Compilar en Node ${{ matrix.node_version }} y desplegar sobre AWS S3
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node_version: ['12.x']
-      steps:
-        - name: Checkout
-          uses: actions/checkout@master
-        - name: Instalar dependencias node
-          run: npm install
-        - name: Build
-          run: npm run build
-        - name: Copiar/Desplegar a AWS S3
-          run: |
-            echo Aquí deberían ir la config y comandos de aws s3+
+jobs:
+  build-and-deploy:
+    name: Compilar en Node ${{ matrix.node_version }} y desplegar sobre AWS S3
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: ['12.x']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Instalar dependencias node
+        run: npm install
+      - name: Build
+        env:
+          PREACT_APP_GAPI_SECRET: ${{ secrets.GAPI_SECRET }}
+        run: npm run build
+      - name: Configurar Credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      - name: Copiar/Desplegar a AWS S3
+        run: |
+          echo Aquí deberían ir la config y comandos de aws s3+
+          aws s3 sync build s3://www.beraza.es
