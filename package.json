@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npx preact watch",
+    "start:dev": "npx preact watch",
+    "start:prod": "npx preact watch",
     "build": "npx preact build",
     "serve": "npx sirv build --cors --single",
     "dev": "npx preact watch",
