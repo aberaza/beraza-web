@@ -28,3 +28,4 @@ on:
           run: |
             echo Aquí deberían ir la config y comandos de aws s3+
             aws s3 sync build s3://www.beraza.es
+
