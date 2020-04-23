@@ -4,4 +4,3 @@ node_modules
 *.lock
 *.oauth.json
 
-package-lock.json
