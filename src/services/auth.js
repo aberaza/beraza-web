@@ -1,4 +1,3 @@
-import { google } from '../components/dev.oauth.json';
 
 var _auth = null,
   gapi;
@@ -19,7 +18,6 @@ class GoogleAuthService extends EventTarget {
       this.userProfile = null;
       this.authResponse = null;
 
-      console.log(process.env);
       GoogleAuthService._instance = this;
     }
     return GoogleAuthService._instance;
@@ -47,7 +45,7 @@ class GoogleAuthService extends EventTarget {
 
   init = () => {
     console.log("GAPI INIT");
-    gapi.client.init({client_id : google.id, scope: 'openid profile email'})
+    gapi.client.init({ client_id: process.env.PREACT_APP_GAPI_SECRET, scope: 'openid profile email'})
     .then(() => {
       _auth = gapi.auth2.getAuthInstance();
       _auth.isSignedIn.listen(this.handleAuthChange);
