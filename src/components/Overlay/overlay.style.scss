@@ -1,0 +1,31 @@
+/*--- Only Firefox ---*/
+@mixin firefox-only {
+  @at-root {
+    @-moz-document url-prefix() {
+      & {
+        @content;
+      }
+    }
+  }
+}
+
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height:100%;
+  z-index: 1;
+  color: rgba(160, 160, 160, 0.80);
+  padding-top: 6%;
+  font-size: 50px;
+  text-align: center;
+  line-height: 100px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  @include firefox-only {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
