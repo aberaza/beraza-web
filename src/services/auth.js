@@ -18,7 +18,6 @@ class GoogleAuthService extends EventTarget {
       this.userProfile = null;
       this.authResponse = null;
 
-
       GoogleAuthService._instance = this;
     }
     return GoogleAuthService._instance;
