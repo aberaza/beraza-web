@@ -5,6 +5,7 @@ import AsyncRoute from 'preact-async-route';
 import UserAuth from './UserAuth.component';
 import Header from './header/header.component';
 import Home from '../routes/home/home.component';
+import Overlay from './Overlay/overlay.component';
 
 export default class App extends Component {
 
@@ -17,6 +18,7 @@ export default class App extends Component {
 	};
 
 	render() {
+		console.log(window)
 		return (
 			<UserAuth>
 				<div id="app">
@@ -33,6 +35,7 @@ export default class App extends Component {
 							getComponent={() => import('../routes/gallery').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
 					</Router>
+					<Overlay text="WIP" />
 				</div>
 			</UserAuth>
 		);
