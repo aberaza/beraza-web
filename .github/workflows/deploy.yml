@@ -1,4 +1,4 @@
-name: Generar Web y desplegar sobre AWS S3
+name: Build & Deploy
 
 on:
   push:

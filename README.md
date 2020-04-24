@@ -1,22 +1,5 @@
 # berazaweb-preact
 
-## CLI Commands
+[![Website beraza.es](https://img.shields.io/website-up-down-green-red/https/www.beraza.es.svg)](https://www.beraza.es)
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# test the production build locally
-npm run serve
-
-# run tests with jest and preact-render-spy 
-npm run test
-```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+[![Website beraza.eu](https://img.shields.io/website-up-down-green-red/https/www.beraza.eu.svg)](https://www.beraza.eu)
