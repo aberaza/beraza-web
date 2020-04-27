@@ -18,13 +18,12 @@ export default class App extends Component {
 	};
 
 	render() {
-		console.log(window)
 		return (
 			<UserAuth>
 				<div id="app">
 					<Header />
 					<Router onChange={this.handleRoute}>
-						<Home path="/" />
+						<Home default />
 						<AsyncRoute path="/profile" user="me"
 							getComponent={() => import('../routes/profile').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
@@ -35,7 +34,7 @@ export default class App extends Component {
 							getComponent={() => import('../routes/gallery').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
 					</Router>
-					<Overlay text="WIP" />
+					<Overlay>Work In Progress</Overlay>
 				</div>
 			</UserAuth>
 		);

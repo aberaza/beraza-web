@@ -1,12 +1,12 @@
 import {h, Component} from 'preact';
 import { useContext } from 'preact/hooks';
 
-import {Auth} from './UserAuth.component';
+import {Auth} from '../UserAuth.component';
 
 export class UserWidget extends Component {
 
   componentDidMount = () => {
-    
+
   };
 
   onSignIn = () => {
@@ -28,7 +28,6 @@ export class UserWidget extends Component {
   }
 
   render (props, state) {
-    console.log(props, state)
     return this.renderAuthButton(props, state);
   }
 }

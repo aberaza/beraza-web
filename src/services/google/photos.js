@@ -7,7 +7,6 @@ const regex = /\["(https?:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
 
 function extractPhotos(content) {
   let matches = Array.from(content.matchAll(regex), m => m[1])
-  console.dir("AAAA", matches);
   return Array.from(new Set(matches));
 }
 
@@ -35,7 +34,7 @@ export function getAlbums() {
   url.searchParams.append("key", DEV_KEY);
 
   return fetch(url)
-    .then(response => console.log(response));
+    .then(r => r.text());
 }
 
 

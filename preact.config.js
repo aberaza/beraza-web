@@ -1,8 +1,8 @@
 import envVars from 'preact-cli-plugin-env-vars';
-import { lstatSync, readdirSync, existsSync } from 'fs';
+// import { lstatSync, readdirSync, existsSync } from 'fs';
 
-const isDirectory = source => lstatSync(source).isDirectory();
-const getDirectories = source => readdirSync(source).map( n => path.join(source, n)).filter(isDirectory);
+// const isDirectory = source => lstatSync(source).isDirectory();
+// const getDirectories = source => readdirSync(source).map( n => path.join(source, n)).filter(isDirectory);
 
 export default {
   plugins: [],

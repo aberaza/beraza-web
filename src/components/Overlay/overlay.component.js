@@ -1,8 +1,8 @@
-import {h} from 'preact'
+import {h} from 'preact';
 import style from './overlay.style.scss';
 
-const Overlay = ({text}) => {
-  return <div class={style.overlay} >{text}</div>
+const Overlay = ({children}) => {
+  return <div class={style.overlay} >{children}</div>
 };
 
 export default Overlay;
