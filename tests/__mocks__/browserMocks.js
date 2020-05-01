@@ -43,9 +43,10 @@ const userInstance = {
 
 const gapi = {
 	// eslint-disable-next-line no-unused-vars
-	load : jest.fn((module, cb, err) => cb()),
+	load : jest.fn((module, { callback, onerror}) => callback()),
 	auth2 : {
 		getAuthInstance: jest.fn(() => authInstance),
+		init: jest.fn(() => Promise.resolve(authInstance))
 	},
 	client: {
 		init: jest.fn(() => Promise.resolve(null))

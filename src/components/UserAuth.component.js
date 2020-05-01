@@ -38,9 +38,8 @@ function UserAuthProvider({children, authService}) {
       setUserProfile(isSignedIn? userProfile : {});
       dispatch(isSignedIn? USER_SIGNED : USER_LOGOUT);
     });
+    _auth.init();
 
-    _auth.load()
-      .then(() => _auth.init());
   });
 
 

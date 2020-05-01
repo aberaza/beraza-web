@@ -1,7 +1,6 @@
 import { h } from 'preact';
-import { useState, useReducer } from 'preact/hooks';
 import { useContext } from 'preact/hooks';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 
 import UserAuthProvider, { Auth } from '../../src/components/UserAuth.component';
@@ -17,8 +16,7 @@ const FakeConsumer = () => {
 
 describe("<Auth /> context", () => {
   const authProviderMock = {
-    load: jest.fn(() => Promise.resolve(null)),
-    init: jest.fn(),
+    init: jest.fn(() => Promise.resolve(null)),
     addEventListener: jest.fn(),
     isSignedIn: false,
     userProfile: { email: "fake@email.is" }
@@ -79,7 +77,7 @@ describe("<UserAuthProvider /> Usage", () => {
 
     authProviderMock.addEventListener.mockImplementationOnce(mI);
 
-    const context = shallow(<UserAuthProvider authService={authProviderMock}>SomeText</UserAuthProvider>);
+    shallow(<UserAuthProvider authService={authProviderMock}>SomeText</UserAuthProvider>);
 
     expect(authProviderMock.init).toHaveBeenCalled();
     expect(authProviderMock.addEventListener).toHaveBeenCalled();

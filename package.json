@@ -9,7 +9,7 @@
     "start:prod": "npx preact watch",
     "build": "npx preact build --no-prerender",
     "serve": "npx sirv build --cors --single",
-    "dev": "npx preact watch",
+    "dev": "PREACT_APP_DEV=true npx preact watch",
     "lint": "npx eslint src",
     "test": "jest"
   },
