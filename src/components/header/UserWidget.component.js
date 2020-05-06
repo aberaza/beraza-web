@@ -42,7 +42,7 @@ export class UserWidget extends Component {
 
   render ({isSignedIn, user}) {
     return (
-	<a href="/" onClick={isSignedIn?this.onSignOut:this.onSignIn} class="f6 fw4 hover-white no-underline white-70 dib-ns pv2 ph3" >
+	<a href="/" onClick={isSignedIn?this.onSignOut:this.onSignIn} class="f5 fw5 hover-white no-underline white-70 dib-ns pv2 ph3" >
 		{ this.renderAuthButton(isSignedIn, user) }
 	</a>
     );
