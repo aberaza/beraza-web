@@ -31,15 +31,14 @@ function UserAuthProvider({children, authService}) {
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
-    const _auth = authService; //new GoogleAuthService();
-    _auth.addEventListener(GoogleAuthService.SIGNED_CHANGE, () => {
-      const {isSignedIn, userProfile} = _auth;
-      console.log("Log: User Authentication State changed", isSignedIn);
+    console.log("<UserAuth /> Registers as SIGNED_CHANGE");
+    authService.addEventListener(GoogleAuthService.SIGNED_CHANGE, () => {
+      console.log("Log: User Authentication State changed");
+      const {isSignedIn, userProfile} = authService;
       setUserProfile(isSignedIn? userProfile : {});
       dispatch(isSignedIn? USER_SIGNED : USER_LOGOUT);
     });
-    _auth.init();
-
+    authService.init();
   });
 
 
