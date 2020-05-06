@@ -1,9 +1,9 @@
 import {h, createContext} from 'preact';
 import {useState, useReducer, useEffect} from 'preact/hooks';
 
-import GoogleAuthService from '../services/auth'
+import googleAuthService, { GoogleAuthService } from '../services/auth'
 
-const USER_LOGGED = 'user-logged-in';
+const USER_SIGNED = 'user-logged-in';
 const USER_LOGOUT = 'user-logged-out';
 
 export const Auth = createContext({
@@ -15,7 +15,7 @@ Auth.displayName = "User Auth Context";
 
 const loggedReducer = (state = null, action) => {
   switch (action) {
-    case USER_LOGGED:
+    case USER_SIGNED:
       return true;
     case USER_LOGOUT:
       return false;
@@ -26,22 +26,19 @@ const loggedReducer = (state = null, action) => {
 
 
 
-export function UserAuthProvider({children}) {
+function UserAuthProvider({children, authService}) {
   const [isSignedIn, dispatch] = useReducer(loggedReducer, null);
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
-    console.log("UserAuth useEfect hook Called");
-
-    const _auth = new GoogleAuthService();
-    _auth.addEventListener(GoogleAuthService.LOGGED_CHANGE, () => {
-      const {isSignedIn} = _auth;
-      setUserProfile(isSignedIn? _auth.userProfile : {});
-      dispatch(isSignedIn? USER_LOGGED : USER_LOGOUT);
+    console.log("<UserAuth /> Registers as SIGNED_CHANGE");
+    authService.addEventListener(GoogleAuthService.SIGNED_CHANGE, () => {
+      console.log("Log: User Authentication State changed");
+      const {isSignedIn, userProfile} = authService;
+      setUserProfile(isSignedIn? userProfile : {});
+      dispatch(isSignedIn? USER_SIGNED : USER_LOGOUT);
     });
-
-    _auth.load()
-      .then(() => _auth.init());
+    authService.init();
   });
 
 
@@ -51,5 +48,7 @@ export function UserAuthProvider({children}) {
     </Auth.Provider>
   );
 }
+
+UserAuthProvider.defaultProps = {authService : googleAuthService};
 
 export default UserAuthProvider;

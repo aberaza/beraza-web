@@ -1,19 +1,22 @@
-
-var _auth = null,
-  gapi;
+import { asyncLoad } from "./helpers";
 
 class GoogleAuthService extends EventTarget {
   static _instance = null;
 
-  static LOGGED_IN = 'logged-in';
-  static LOGGED_OUT = 'logged-out';
-  static LOGGED_CHANGE = 'logged-change';
+  static SIGNED_IN = 'logged-in';
+  static SIGNED_OUT = 'logged-out';
+  static SIGNED_CHANGE = 'logged-change';
 
-  constructor(key) {
+  static getInstance = () => {
+    return new GoogleAuthService();
+  }
+
+  constructor(key = process.env.PREACT_APP_GAPI_SECRET){
     if (!GoogleAuthService._instance){
       super ();
       this.key = key;
-
+      this.api = null;
+      this.authInstance = null;
       this.isSignedIn = null;
       this.userProfile = null;
       this.authResponse = null;
@@ -24,50 +27,39 @@ class GoogleAuthService extends EventTarget {
   }
 
 
-  load = () => {
-    console.log("Doing some load...");
-    return new Promise((resolve, reject) => {
-      const gapiLoader = document.createElement("script");
-      gapiLoader.defer = true;
-      gapiLoader.async = true;
-      gapiLoader.onload = () => {
-        console.log("GAPI LOADED");
-        gapi = window.gapi;
-        gapi.load('client:auth2',
-          () => resolve(this),
-          () => reject("Failed to load client:auth2")
-        );
-      };
-      gapiLoader.src = "https://apis.google.com/js/api.js";
-      document.getElementsByTagName('head')[0].appendChild(gapiLoader);
-      });
-  };
-
-  init = () => {
+  init = (modules = 'auth2', scope = 'openid profile email') => {
+    if( this.api ) {
+      return console.warn("Already Initialized");
+    }
     console.log("GAPI INIT");
-    gapi.client.init({ client_id: process.env.PREACT_APP_GAPI_SECRET, scope: 'openid profile email'})
-    .then(() => {
-      _auth = gapi.auth2.getAuthInstance();
-      _auth.isSignedIn.listen(this.handleAuthChange);
-      this.handleAuthChange();
-    }).catch((err) => console.warn("GAPI init failed", err));
+
+    asyncLoad("https://apis.google.com/js/api.js")
+      .then( () => { this.api = window.gapi; return new Promise( (callback, onerror) => window.gapi.load(modules, {callback, onerror})); } )
+      .then( () => this.api.auth2.init({ client_id: this.key, scope}))
+      .then( ai => (this.authInstance = ai, ai) )
+      .then( ai => (console.log("Register as listener"),ai.isSignedIn.listen(this.handleAuthChange), this.handleAuthChange()) )
+      .catch(err => console.warn("GAPI init failed", err)); 
+
+    this.addEventListener(GoogleAuthService.SIGNED_CHANGE, () => console.log("DEBUG EVENT EMITTER: SIGNED CHANGE EMITTED!!!!"));
   };
 
   handleAuthChange = () => {
-    if(_auth.isSignedIn.get()){
-      return this._handleOnLogIn(_auth.currentUser.get())
+    console.log("CB handleAuthChange called")
+    if(this.authInstance.isSignedIn.get()){
+      return this._handleOnLogIn(this.authInstance.currentUser.get())
     }
 
     this._handleOnLogOut();
   };
-
+  
   _handleOnLogIn = (user) => {
     this.isSignedIn = true;
     this.userProfile = user.getBasicProfile();
     this.authResponse = user.getAuthResponse();
 
-    this.dispatchEvent(new CustomEvent(this.LOGGED_CHANGE));
-    this.dispatchEvent( new CustomEvent(this.LOGGED_IN, {detail:this.userProfile}));
+    console.log("LOGED IN ", this.userProfile);
+    this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_CHANGE));
+    this.dispatchEvent( new CustomEvent(GoogleAuthService.SIGNED_IN, {detail:this.userProfile}));
   };
 
   _handleOnLogOut = () => {
@@ -75,17 +67,27 @@ class GoogleAuthService extends EventTarget {
     this.userProfile = null;
     this.authResponse = null;
 
-    this.dispatchEvent(new CustomEvent(this.LOGGED_CHANGE));
-    this.dispatchEvent(new CustomEvent(this.LOGGED_OUT));
+    console.log("LOGED OUT");
+
+    this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_CHANGE));
+    this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_OUT));
   };
 
   signIn = () => {
-    return _auth.signIn();
+    console.log("Perform Sign In >>>>");
+    return this.authInstance.signIn()
+      .then( user => console.log("Signed in as ", user))
+      .catch( err => console.warn(err) );
   };
 
   signOut = () => {
-    return _auth.signOut();
+    console.log("Perform Log Out <<<<");
+    return this.authInstance.signOut()
+      .then( user => console.log("Signed Out as ", user))
+      .catch( err => console.warn(err) );
   };
 }
-
-export default GoogleAuthService;
+  
+const googleAuthService = new GoogleAuthService();
+export default googleAuthService;
+export { GoogleAuthService };
