@@ -6,6 +6,7 @@ const F_CONF = {
 const regex = /\["(https?:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
 
 function extractPhotos(content) {
+  console.log(content);
   let matches = Array.from(content.matchAll(regex), m => m[1])
   return Array.from(new Set(matches));
 }
