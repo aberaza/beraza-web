@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import AsyncRoute from 'preact-async-route';
 
-import googleAuthService from '../services/auth';
+import googleAuthService from '../services/google/auth';
 import UserAuth from './UserAuth.component';
 import Header from './header/header.component';
 import Home from '../routes/home/home.component';

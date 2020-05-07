@@ -1,7 +1,7 @@
 import {h, createContext} from 'preact';
 import {useState, useReducer, useEffect} from 'preact/hooks';
 
-import googleAuthService, { GoogleAuthService } from '../services/auth'
+import googleAuthService, { GoogleAuthService } from '../services/google/auth'
 
 const USER_SIGNED = 'user-logged-in';
 const USER_LOGOUT = 'user-logged-out';

@@ -1,4 +1,4 @@
-import { asyncLoad } from "./helpers";
+import { asyncLoad } from "../helpers";
 
 class GoogleAuthService extends EventTarget {
   static _instance = null;
@@ -10,22 +10,37 @@ class GoogleAuthService extends EventTarget {
   static getInstance = () => {
     return new GoogleAuthService();
   }
-
+  
   constructor(key = process.env.PREACT_APP_GAPI_SECRET){
     if (!GoogleAuthService._instance){
       super ();
       this.key = key;
       this.api = null;
       this.authInstance = null;
-      this.isSignedIn = null;
-      this.userProfile = null;
-      this.authResponse = null;
+      this._user = null;
 
       GoogleAuthService._instance = this;
     }
     return GoogleAuthService._instance;
   }
 
+  get isSignedIn() { 
+    return this.authInstance 
+      ? this.authInstance.isSignedIn.get()
+      : null;
+  }
+
+  get userProfile() {
+    return this._user
+      ? this._user.getBasicProfile()
+      : null;
+  }
+
+  get authResponse() {
+    return this._user
+      ? this._user.getAuthResponse
+      : null;
+  }
 
   init = (modules = 'auth2', scope = 'openid profile email') => {
     if( this.api ) {
@@ -44,7 +59,7 @@ class GoogleAuthService extends EventTarget {
   };
 
   handleAuthChange = () => {
-    console.log("CB handleAuthChange called")
+    console.info("CB handleAuthChange called")
     if(this.authInstance.isSignedIn.get()){
       return this._handleOnLogIn(this.authInstance.currentUser.get())
     }
@@ -54,8 +69,6 @@ class GoogleAuthService extends EventTarget {
   
   _handleOnLogIn = (user) => {
     this.isSignedIn = true;
-    this.userProfile = user.getBasicProfile();
-    this.authResponse = user.getAuthResponse();
 
     console.log("LOGED IN ", this.userProfile);
     this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_CHANGE));
@@ -64,32 +77,30 @@ class GoogleAuthService extends EventTarget {
 
   _handleOnLogOut = () => {
     this.isSignedIn = false;
-    this.userProfile = null;
-    this.authResponse = null;
+    this._user = null;
 
     console.log("LOGED OUT");
-
     this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_CHANGE));
     this.dispatchEvent(new CustomEvent(GoogleAuthService.SIGNED_OUT));
   };
 
   signIn = () => {
-    console.log("Perform Sign In >>>>");
+    console.info("Perform Sign In >>>>");
     if(!this.authInstance){
       return Promise.reject("Module has not been initialized");
     }
     return this.authInstance.signIn()
-      .then( user => console.log("Signed in as ", user))
+      .then( user => console.info("Signed in as ", user))
       .catch( err => console.warn(err) );
   };
 
   signOut = () => {
-    console.log("Perform Log Out <<<<");
+    console.info("Perform Log Out <<<<");
     if(!this.authInstance){
       return Promise.reject("Module has not been initialized");
     }
     return this.authInstance.signOut()
-      .then( user => console.log("Signed Out as ", user))
+      .then( user => console.info("Signed Out as ", user))
       .catch( err => console.warn(err) );
   };
 }

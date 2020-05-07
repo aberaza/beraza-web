@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 
 import UserAuthProvider, { Auth } from '../../src/components/UserAuth.component';
-import { GoogleAuthService } from '../../src/services/auth';
+import { GoogleAuthService } from '../../src/services/google/auth';
 
 var _isSignedIn, _userProfile;
 const FakeConsumer = () => {

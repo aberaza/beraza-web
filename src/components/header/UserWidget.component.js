@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import { useContext } from 'preact/hooks';
 
 import {Auth} from '../UserAuth.component';
-import googleAuthService from '../../services/auth';
+import googleAuthService from '../../services/google/auth';
 
 const SignInCaret = () => {
   return (
