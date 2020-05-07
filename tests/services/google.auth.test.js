@@ -26,25 +26,11 @@ describe("GoogleAuth Class", () => {
     expect(GoogleAuthService.getInstance()).toBe(ga2);
   });
 
-  describe("Signs In, Out and handles changes", () => {
-    beforeAll(() => {
-      ga.init();
-    });
-
-    it("handles sign in", () => {
-      ga.signIn();
-      expect(window.gapi._authInstance.signIn).toBeCalled();
-    });
-
-    it("handles sign out", () => {
-      ga.signOut();
-      expect(window.gapi._authInstance.signOut).toBeCalled();
-    });
-  });
 });
 
 describe("GoogleAuth load and init", () => {
   const PREACT_APP_GAPI_SECRET = "fakeAuthkey";
+  
   beforeAll(() => {
     const OLD_PROCESS_ENV = global.process.env;
     global.process.env = { ...OLD_PROCESS_ENV, PREACT_APP_GAPI_SECRET };
@@ -63,9 +49,7 @@ describe("GoogleAuth load and init", () => {
     //expect.assertions(5);
     const ga = new GoogleAuthService();
     await ga.init();
-    console.log(window.gapi.auth2.init.mock.calls)
     const { client_id, scope } = window.gapi.auth2.init.mock.calls[0][0];
-    console.log(client_id, scope);
     expect(window.gapi.auth2.init).toBeCalled();
     expect(client_id).toBe(PREACT_APP_GAPI_SECRET);
     expect(scope).toContain('openid');
@@ -76,4 +60,36 @@ describe("GoogleAuth load and init", () => {
 
 
 
+describe("Signs In, Out and handles changes", () => {
+  describe.skip("before Init", () => {
+    var ga;
+    beforeAll(() => ga = new GoogleAuthService());
+
+    test("signing in before init fails", () => {
+      return expect(ga.signIn()).rejects.toBeTruthy();
+    });
+
+    test("signing out before init fails", () => {
+      return expect(ga.signOut()).rejects.toBeTruthy();
+    });
+  });
+
+  describe("after Init", () => {
+    var ga;
+    beforeAll(() => {
+      ga = new GoogleAuthService();
+      ga.init();
+    });
+
+    it("handles sign in", async () => {
+      await ga.signIn();
+      expect(window.gapi._authInstance.signIn).toBeCalled();
+    });
+
+    it("handles sign out", async () => {
+      await ga.signOut();
+      expect(window.gapi._authInstance.signOut).toBeCalled();
+    });
+  });
+});
 

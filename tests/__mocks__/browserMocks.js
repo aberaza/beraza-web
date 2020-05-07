@@ -25,8 +25,8 @@ Object.defineProperty(window, 'localStorage', {
 var [_signed, _user, _listeners] = [false, {id: "toto", mail: "user@test"}, []];
 const authInstance = {
 	_reset: () => {[_signed, _user] = [] },
-	signIn: jest.fn(()=>{_signed = true; _listeners.forEach(l => l(_signed))}),
-	signOut: jest.fn(()=> {_signed = false; _listeners.forEach(l => l(_signed))}),
+	signIn: jest.fn(()=>{_signed = true; _listeners.forEach(l => l(_signed)); return Promise.resolve(userInstance);}),
+	signOut: jest.fn(()=> {_signed = false; _listeners.forEach(l => l(_signed)); return Promise.resolve(null);}),
 	isSignedIn : {
 		listen: jest.fn((cb) => _listeners.push(cb)),
 		get: jest.fn(()=> _signed)

@@ -75,6 +75,9 @@ class GoogleAuthService extends EventTarget {
 
   signIn = () => {
     console.log("Perform Sign In >>>>");
+    if(!this.authInstance){
+      return Promise.reject("Module has not been initialized");
+    }
     return this.authInstance.signIn()
       .then( user => console.log("Signed in as ", user))
       .catch( err => console.warn(err) );
@@ -82,6 +85,9 @@ class GoogleAuthService extends EventTarget {
 
   signOut = () => {
     console.log("Perform Log Out <<<<");
+    if(!this.authInstance){
+      return Promise.reject("Module has not been initialized");
+    }
     return this.authInstance.signOut()
       .then( user => console.log("Signed Out as ", user))
       .catch( err => console.warn(err) );

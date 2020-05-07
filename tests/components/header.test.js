@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 describe('Initial Test of the Header', () => {
 	test('Header renders 4 nav items', () => {
 		const context = shallow(<Header />);
-		expect(context.find('a').text()).toBe('Beraza');
+		expect(context.find('a').text()).toBe('@Beraza');
 		expect(context.find('Link').length).toBe(3);
 	})
 });
