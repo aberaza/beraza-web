@@ -9,6 +9,7 @@ import Home from '../routes/home/home.component';
 import Overlay from './Overlay/overlay.component';
 
 export default class App extends Component {
+  state = {debug : process.env.PREACT_APP_DEV === "true" };
 
   componentDidMount(){
     googleAuthService.init();
@@ -19,6 +20,10 @@ export default class App extends Component {
 	 */
 	handleRoute = e => {
 		this.currentUrl = e.url;
+		if(window.location){
+      let searchParams = new URLSearchParams(window.location.search);
+      this.setState({...this.state, debug: searchParams.has('debug')});
+    }
 	};
 
 	render() {
@@ -38,7 +43,7 @@ export default class App extends Component {
 							getComponent={() => import('../routes/gallery').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
           </Router>
-          {process.env.PREACT_APP_DEV === "true" ? '' : <Overlay>Work In Progress</Overlay> }
+          {this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
 				</div>
 			</UserAuth>
 		);
