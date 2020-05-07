@@ -28,7 +28,7 @@ describe('getAlbums API', () => {
 
   test("getAlbum fetches an array of pictures", async () => {
     // eslint-disable-next-line no-global-assign
-    fetch = jest.fn(() => Promise.resolve({text: ()=> ""}));
+    fetch = jest.fn(() => Promise.resolve({text: ()=> "some text"}));
 
     const photos = await gphotos.getAlbum(0);
     expect(fetch).toBeCalled();
@@ -37,7 +37,7 @@ describe('getAlbums API', () => {
 
   test("getAlbums fetches a list of albums", async () => {
     // eslint-disable-next-line no-global-assign
-    fetch = jest.fn(() => Promise.resolve({ text: () => "" }));
+    fetch = jest.fn(() => Promise.resolve({ text: () => "some text" }));
     // eslint-disable-next-line no-unused-vars
     const albums = await gphotos.getAlbums();
     expect(fetch).toBeCalled();
