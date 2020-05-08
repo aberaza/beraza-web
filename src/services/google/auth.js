@@ -7,9 +7,7 @@ class GoogleAuthService extends EventTarget {
   static SIGNED_OUT = 'logged-out';
   static SIGNED_CHANGE = 'logged-change';
 
-  static getInstance = () => {
-    return new GoogleAuthService();
-  }
+  static getInstance = () => new GoogleAuthService();
   
   constructor(key = process.env.PREACT_APP_GAPI_SECRET){
     if (!GoogleAuthService._instance){
