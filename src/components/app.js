@@ -3,6 +3,8 @@ import { Router } from 'preact-router';
 import AsyncRoute from 'preact-async-route';
 
 import googleAuthService from '../services/google/auth';
+import appAuthProvider from '../services/auth';
+
 import UserAuth from './UserAuth.component';
 import Header from './header/header.component';
 import Home from '../routes/home/home.component';
@@ -13,6 +15,7 @@ export default class App extends Component {
 
   componentDidMount(){
     googleAuthService.init();
+    appAuthProvider.registerAuthProvider(googleAuthService);
   }
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -28,7 +31,7 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<UserAuth authService={googleAuthService}>
+			<UserAuth authService={appAuthProvider}>
 				<div id="app">
 					<Header />
 					<Router onChange={this.handleRoute}>
