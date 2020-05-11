@@ -1,7 +1,9 @@
 import {h, createContext} from 'preact';
 import {useState, useReducer, useEffect} from 'preact/hooks';
 
-import googleAuthService, { GoogleAuthService } from '../services/google/auth'
+// import googleAuthService, { GoogleAuthService } from '../services/google/auth'
+// import appAuthProvider, {AppAuthProvider} from '../services/auth';
+import {AuthProvider} from '../services/auth';
 
 const USER_SIGNED = 'user-logged-in';
 const USER_LOGOUT = 'user-logged-out';
@@ -24,15 +26,13 @@ const loggedReducer = (state = null, action) => {
   }
 };
 
-
-
 function UserAuthProvider({children, authService}) {
   const [isSignedIn, dispatch] = useReducer(loggedReducer, null);
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
-    console.log("<UserAuth /> Registers as SIGNED_CHANGE");
-    authService.addEventListener(GoogleAuthService.SIGNED_CHANGE, () => {
+    console.info("<UserAuth /> Registers as SIGNED_CHANGE");
+    authService.addEventListener(AuthProvider.SIGNED_CHANGE, () => {
       console.log("Log: User Authentication State changed");
       const {isSignedIn, userProfile} = authService;
       setUserProfile(isSignedIn? userProfile : {});
@@ -41,7 +41,6 @@ function UserAuthProvider({children, authService}) {
     authService.init();
   });
 
-
   return (
     <Auth.Provider value={{isSignedIn, userProfile}}>
       {children}
@@ -49,6 +48,6 @@ function UserAuthProvider({children, authService}) {
   );
 }
 
-UserAuthProvider.defaultProps = {authService : googleAuthService};
+// UserAuthProvider.defaultProps = {authService : googleAuthService};
 
 export default UserAuthProvider;
