@@ -12,11 +12,10 @@ export default class AuthProvider extends EventTarget {
   /** @static */
   static SIGNED_CHANGE = 'logged-change';
 
-  constructor({name, key}) {
+  constructor({name='unnamed-provider'}={}) {
     super();
 
-    this.providerName = name || AuthProvider.PROVIDER_NAME;
-    this.isSignedIn = null;
+    this.providerName = name;
     this.userProfile = null;
     this.authResponse = null;
   }
@@ -30,12 +29,29 @@ export default class AuthProvider extends EventTarget {
   }
 
   /**
+   * Signed In status
+   * @readonly
+   */
+  get isSignedIn(){
+    return null;
+  }
+
+
+  /**
    * Init provider
    * @param {Object} [params] Extra parameters needed to init auth instance
    * @return {Promise<AuthProvider>} Thenable that resolves to this
    */
   init(params) {
     return Promise.reject("init not implemented");
+  }
+
+  /**
+   * Method to be called to de-register AuthProvider listener
+   * @Param {Object} Listener to unregister
+   */
+  unregister(listener) {
+    return Promise.reject("unregister not implemented");
   }
 
   /**
