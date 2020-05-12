@@ -1,10 +1,10 @@
 /*--- Only Firefox ---*/
-@mixin firefox-only {
-  @at-root {
-    @-moz-document url-prefix() {
-      & {
-        @content;
-      }
+@mixin backdrop-blur ($rgb1, $rgb2, $rgb3, $rgb4){
+  background-color: rgba($rgb1, $rgb2, $rgb3, $rgb4);
+  @supports (backdrop-filter: none){
+    & {
+      background-color: rgba($rgb1, $rgb2, $rgb3, $rgb4*0.85);
+      backdrop-filter: blur(6px);
     }
   }
 }
@@ -23,9 +23,5 @@
   text-align: center;
   line-height: 100px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-  background-color: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  @include firefox-only {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
+  @include backdrop-blur(0, 0, 0, .9);
 }
