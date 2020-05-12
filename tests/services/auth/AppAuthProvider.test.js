@@ -33,10 +33,10 @@ describe("AppAuthProvider Class", () => {
 
   describe("Basic auth providers management", () => {
     let provider = new MockProvider({name:"TEST_A_P"});
-    provider.init = jest.fn(()=>Promise.resolve(null));
+    provider.addEventListener = jest.fn(()=>Promise.resolve(null));
     provider.unregister = jest.fn(()=>Promise.resolve(null));
 
-    beforeEach(()=> provider.init.mockClear());
+    beforeEach(()=> provider.addEventListener.mockClear());
 
     afterEach(()=>{aap.authBackends = []});
 
@@ -47,7 +47,7 @@ describe("AppAuthProvider Class", () => {
       const result = await aap[m](provider);
 
       expect(aap.authBackends).toContain(provider);
-      expect(provider.init).toHaveBeenCalled();
+      expect(provider.addEventListener).toHaveBeenCalled();
       expect(result).toBe(aap);
     });
 

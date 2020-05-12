@@ -17,7 +17,7 @@ describe("AuthEvent class type", () => {
   });
 
   test("detail contains authProvider name", () => {
-    expect(ae.detail.provider).toBe("TEST_PROVIDER");
+    expect(ae.detail.provider.leaf.PROVIDER_NAME).toBe("TEST_PROVIDER");
   });
 
   test("detail contains whatever payload y sent", () => {
