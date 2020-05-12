@@ -4,7 +4,10 @@
  * @param {string} [{}.name=AuthProvider.PROVIDER_NAME] name of the auth provider instance  
  * @param {string} [{}.key] API key to be used to identify in API provider
  */
+
+
 export default class AuthProvider extends EventTarget {
+
   /** @static */
   static SIGNED_IN = 'logged-in';
   /** @static */
@@ -14,35 +17,33 @@ export default class AuthProvider extends EventTarget {
 
   constructor({name='unnamed-provider'}={}) {
     super();
-
-    this.providerName = name;
-    this.userProfile = null;
-    this.authResponse = null;
+    this.__providerName = name;
   }
 
   /**
    * provider auth name
    * @readonly
    */
-  get PROVIDER_NAME() {
-    return this.providerName;
-  }
+  get PROVIDER_NAME() { return this.__providerName; }
 
   /**
    * Signed In status
    * @readonly
    */
-  get isSignedIn(){
-    return null;
-  }
+  get isSignedIn(){ return null; }
 
+  /**
+   * Signed User Profile | null if not signed
+   * @readonly
+   */
+  get userProfile() { return null; }
 
   /**
    * Init provider
    * @param {Object} [params] Extra parameters needed to init auth instance
    * @return {Promise<AuthProvider>} Thenable that resolves to this
    */
-  init(params) {
+  init() {
     return Promise.reject("init not implemented");
   }
 
