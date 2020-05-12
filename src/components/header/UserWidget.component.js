@@ -23,13 +23,9 @@ const UserCaret = ({imgSrc, name}) => {
 
 export class UserWidget extends Component {
 
-  onSignIn = (provider=null) => {
-    appAuthProvider.signIn(provider);
-  };
+  onSignIn = () => appAuthProvider.signIn();
 
-  onSignOut = (provider=null) => {
-    appAuthProvider.signOut(provider);
-  };
+  onSignOut = () => appAuthProvider.signOut();
 
   renderAuthButton(isSignedIn, user) {
     return (

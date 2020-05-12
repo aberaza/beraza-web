@@ -11,21 +11,21 @@ import Home from '../routes/home/home.component';
 import Overlay from './Overlay/overlay.component';
 
 export default class App extends Component {
-  state = {debug : process.env.PREACT_APP_DEV === "true" };
+  state = { debug : process.env.PREACT_APP_DEV === "true" };
 
   componentDidMount(){
+    appAuthProvider.init([googleAuthService]);
     googleAuthService.init();
-    appAuthProvider.registerAuthProvider(googleAuthService);
   }
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
-	 *	@param {string} event.url	The newly routed URL
+	 *	@param {string} event.url	The newlythis routed URL
 	 */
 	handleRoute = e => {
 		this.currentUrl = e.url;
 		if(window.location){
       let searchParams = new URLSearchParams(window.location.search);
-      this.setState({...this.state, debug: searchParams.has('debug')});
+      this.setState({...this.state, debug: (searchParams.has('debug') || process.env.PREACT_APP_DEV) });
     }
 	};
 
@@ -45,8 +45,8 @@ export default class App extends Component {
 						<AsyncRoute path="/gallery"
 							getComponent={() => import('../routes/gallery').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
-          </Router>
-          {this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
+					</Router>
+					{this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
 				</div>
 			</UserAuth>
 		);

@@ -8,12 +8,6 @@
 
 export default class AuthProvider extends EventTarget {
 
-  /** @static */
-  static SIGNED_IN = 'logged-in';
-  /** @static */
-  static SIGNED_OUT = 'logged-out';
-  /** @static */
-  static SIGNED_CHANGE = 'logged-change';
 
   constructor({name='unnamed-provider'}={}) {
     super();

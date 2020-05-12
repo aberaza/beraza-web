@@ -41,7 +41,7 @@ export default class AuthEvent extends CustomEvent {
    * @param {object} [data={}] Aditional event data
    * @returns {AuthEvent}
    */
-  static SignedChange(authProvider, data) { return new AuthEvent(authProvider, AuthEvent.SIGNED_CHANGED, data); }
+  static SignedChange(authProvider, data) { return new AuthEvent(authProvider, AuthEvent.SIGNED_CHANGE, data); }
 
   constructor(authProvider, event, data={} ){
     super(event, 

@@ -43,10 +43,7 @@ export default class AppAuthProvider extends AuthProvider {
     }
     
     this.authBackends.push(authProvider);
-
-    return authProvider.init(extraArgs)
-      .then(()=> authProvider.addEventListener(AuthProvider.SIGNED_CHANGE, this._handleAuthChange))
-      .then(()=> this);
+    return new Promise((resolve) => (authProvider.addEventListener(AuthEvent.SIGNED_CHANGE, this._handleAuthChange), resolve(AppAuthProvider.instance) ));
   }
 
   /**
@@ -84,16 +81,17 @@ export default class AppAuthProvider extends AuthProvider {
   }
 
   _handleAuthChange = (e) => {
-    this.dispatchEvent( new AuthEvent(this, AuthProvider.SIGNED_CHANGE, e.detail ));
+    console.info("APP_AUTH_PROVIDER AuthChanged CB");
+    this.dispatchEvent( AuthEvent.SignedChange(this, e.detail ));
   }
 
-  _handleOnLogIn = (e) => {
-    this.dispatchEvent( new AuthEvent(this, AuthProvider.SIGNED_IN, e.detail ));
-  }
+  // _handleOnLogIn = (e) => {
+  //   this.dispatchEvent( AuthEvent.SignedIn(this, e.detail ));
+  // }
 
-  _handleOnLogOut = (e) => {
-    this.dispatchEvent( new AuthEvent(this, AuthProvider.SIGNED_OUT, e.detail ));
-  }
+  // _handleOnLogOut = (e) => {
+  //   this.dispatchEvent( AuthEvent.SignedOut(this, e.detail ));
+  // }
 
   signIn(provider=this.defaultProvider){
     if (typeof provider === 'string'){
@@ -121,5 +119,8 @@ export default class AppAuthProvider extends AuthProvider {
   get defaultProvider() {
     return this.authBackends[0];
   }
+
+  get userProfile() { let loggedBackEnd = this.authBackends.find(backend => backend.isSignedIn); return loggedBackEnd? loggedBackEnd.userProfile : null; }
+
 }
 
