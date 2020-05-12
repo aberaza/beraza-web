@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import { useContext } from 'preact/hooks';
 
 import {Auth} from '../UserAuth.component';
-import googleAuthService from '../../services/auth';
+import appAuthProvider from '../../services/auth';
 
 const SignInCaret = () => {
   return (
@@ -23,16 +23,11 @@ const UserCaret = ({imgSrc, name}) => {
 
 export class UserWidget extends Component {
 
-  onSignIn = () => {
-    googleAuthService.signIn();
-  };
+  onSignIn = () => appAuthProvider.signIn();
 
-  onSignOut = () => {
-    googleAuthService.signOut();
-  };
+  onSignOut = () => appAuthProvider.signOut();
 
   renderAuthButton(isSignedIn, user) {
-    console.dir(user);
     return (
       isSignedIn
       ? <UserCaret imgSrc={user.getImageUrl()} name={user.getName()} />

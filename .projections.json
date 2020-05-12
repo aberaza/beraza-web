@@ -1,0 +1,19 @@
+{
+  "src/*.js": {
+    "alternate" : "tests/{}.test.js",
+    "type" : "source"
+  },
+  "tests/*.test.js" : {
+    "alternate" : "src/{}.js",
+    "type": "test",
+    "template" : [
+      "import {basename} from '/src/{}'",
+      "",
+      "describe('{basename|capitalize} Basic Tests', () => {open}",
+      " test('Something', () => {open}",
+      "   expect(true).toBeTruthy();",
+      " {close});",
+      "{close});"
+    ]
+  }
+}

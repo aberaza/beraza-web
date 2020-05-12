@@ -11,7 +11,8 @@
     "serve": "npx sirv build --cors --single",
     "dev": "PREACT_APP_DEV=true npx preact watch",
     "lint": "npx eslint src",
-    "test": "jest"
+    "test": "jest --reporters default",
+    "test:watch": "jest --reporters default --watchAll"
   },
   "eslintConfig": {
     "extends": "preact",
@@ -35,6 +36,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-preset-preact": "^1.0.0",
+    "jest-simple-dot-reporter": "^1.0.5",
     "node-sass": "^4.13.1",
     "preact-cli": "^3.0.0-rc.10",
     "preact-cli-plugin-env-vars": "^1.2.1",
@@ -53,10 +55,13 @@
   ],
   "jest": {
     "preset": "jest-preset-preact",
+    "reporters" : [
+      ["jest-simple-dot-reporter", {"color": true}]
+    ],
     "coverageReporters": [
       "json"
     ],
-    "maxConcurrency" : 2,
+    "maxConcurrency": 2,
     "coverageThreshold": {
       "global": {
         "branches": 30,
@@ -64,6 +69,9 @@
         "lines": 30,
         "statements": 30
       }
+    },
+    "moduleNameMapper": {
+      "/src/(.*)": "<rootDir>/src/$1"
     },
     "setupFiles": [
       "<rootDir>/tests/__mocks__/browserMocks.js",
