@@ -4,6 +4,12 @@ import { AuthProvider } from '../../../src/services/auth';
 describe("AuthEvent class type", () => {
   let ae = new AuthEvent(new AuthProvider({name:"TEST_PROVIDER"}),"TEST", { payloadField: true, anotherField: 0} );
 
+  test("Has static definitions of default auth event types", () => {
+    expect(AuthEvent.SIGNED_CHANGE).toBeTruthy();
+    expect(AuthEvent.SIGNED_IN).toBeTruthy();
+    expect(AuthEvent.SIGNED_OUT).toBeTruthy();
+  });
+
   test("AuthEvent class extends CustomEvent", () => {
 
     expect(ae instanceof CustomEvent).toBeTruthy();
