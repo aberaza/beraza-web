@@ -5,6 +5,10 @@
  * @param {string} [{}.key] API key to be used to identify in API provider
  */
 
+var coche = { casa: 'hola' };
+
+console.log(coche['casa'
+])
 
 export default class AuthProvider extends EventTarget {
 

@@ -43,7 +43,7 @@ export default class AppAuthProvider extends AuthProvider {
     }
     
     this.authBackends.push(authProvider);
-    return new Promise((resolve) => (authProvider.addEventListener(AuthEvent.SIGNED_CHANGE, this._handleAuthChange), resolve(AppAuthProvider.instance) ));
+    return new Promise((resolve) => (authProvider.addEventListener(AuthEvent.SIGNED_CHANGE, this._handleAuthChange, true), resolve(AppAuthProvider.instance) ));
   }
 
   /**
