@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 
 import gphotos from "../../services/google/photos";
 
-const BACKGROUND_ALBUM_ID = "NKcxRYKcuDrH1XeT6";
+const BACKGROUND_ALBUM_ID = process.env.PREACT_BACKGROUND_ALBUM_ID;
 class Home extends Component {
 
 	state = {bg:''};
