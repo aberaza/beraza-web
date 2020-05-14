@@ -5,7 +5,7 @@ import { Link } from 'preact-router/match';
 import UserWidgetConsumer from './UserWidget.component';
 
 const Header = () => (
-	<header class="sans-serif bg-black-80">
+	<header class="sans-serif bg-black-80 fixed w-100">
 		<nav class="dt w-100 mw8 center">
 			<div class="dtc w2 v-mid pa3">
 				<a href="/" class="div pa1 f3 fw4 tracked white-90 grow-larger no-underline">@Beraza</a>
