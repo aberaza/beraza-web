@@ -1,18 +1,31 @@
 import {h, Component} from 'preact';
 
-import parallaxSection from './parallax-section.component';
-import parallaxLayer from './parallax-layer.component';
+import style from './parallax.style.scss';
 
-export default class AbgParallax extends Component {
+/* For Demo, remove */
+import {getImageUrl} from '../../services/picsum';
 
-  render () {
+function getSeed() {
+  return Math.random().toString(36).substring(7);
+}
+
+export class ParallaxContainer extends Component {
+  state = {bg1 : null, bg2: null, loading: true}
+
+  componentDidMount() {
+   Promise.all( [getImageUrl(undefined, undefined, undefined, getSeed()), getImageUrl()])
+    .then(([bg1, bg2]) => this.setState({bg1, bg2, loading:false}));
+  }
+  
+  render (props={}, state) {
+    if(state.loading){
+      return <h3> Loading... </h3>;
+    }
     return (
-      <div class="parallax-wrapper">
-        <parallaxSection> Section 1 </parallaxSection>
-        <parallaxSection> Section 2 </parallaxSection>
-        Wrapper
+      <div class={style.parallaxContainer}>
+        {props.chidren}
       </div>
     );
   }
 }
-
+            

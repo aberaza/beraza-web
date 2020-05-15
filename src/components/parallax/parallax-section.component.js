@@ -1,12 +1,12 @@
 import {h} from 'preact';
 
-function parallaxSection(props){
+import style from './parallax.style.scss'
 
+export function ParallaxSection(props){
   return(
-    <section class="parallax-section">
+    <section class={style.parallaxSection}>
       {props.children}
     </section>
   );
 }
 
-export default parallaxSection;

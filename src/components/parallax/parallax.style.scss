@@ -1,6 +1,50 @@
+@mixin fill-screen {
+  width: 100vw;
+  height: 100vh;
+}
 
+@mixin fill-parent {
+  width: 100%;
+  height: 100%;
+}
 
-.image-layer {
+@mixin parallax-layer-base {
+  @include fill-parent;
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+
+.parallaxContainer {
+  @include fill-screen;
+}
+
+.parallaxSection {
+  @include fill-parent;
+  position:relative;
+  overflow: hidden;
+}
+
+.imageLayer {
+  @include parallax-layer-base;
+
+  background-attachment: fixed;
   background-position: center center;
   background-size: cover;
+}
+
+.colorLayer{
+  @include parallax-layer-base;
+  background-color: pink;
+}
+
+.parallax-color-layer {
+  @include parallax-layer-base;
+  background-color: olive;
+}
+
+.parallaxLayer {
+  @include parallax-layer-base;
 }
