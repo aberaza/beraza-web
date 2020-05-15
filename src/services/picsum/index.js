@@ -39,7 +39,7 @@ export function appendFilters(filters={}) {
  * @param {object} [filters = {}] filters to apply. See appendFilters()
  * @returns {Promise<string>} url 
  */
-export function getImageUrl(w=1024, h=768, id, seed, filters) {
+export function getImageUrl(w=window.innerWidth, h=window.innerHeight, id, seed, filters) {
   return Promise.resolve( "https://picsum.photos/"+ idPath(id) + seedPath(seed) + w + "/" + h + appendFilters(filters));
 }
 
