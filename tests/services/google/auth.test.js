@@ -29,7 +29,9 @@ describe.skip("GoogleAuth load and init", () => {
   const PREACT_APP_GAPI_SECRET = "fakeAuthkey";
   
   beforeAll(() => {
+    // eslint-disable-next-line no-undef
     const OLD_PROCESS_ENV = global.process.env;
+    // eslint-disable-next-line no-undef
     global.process.env = { ...OLD_PROCESS_ENV, PREACT_APP_GAPI_SECRET };
   })
 
