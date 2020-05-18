@@ -1,20 +1,21 @@
 import { h, Component } from 'preact';
 // import style from './home.style.scss';
 
-import gphotos from "../../services/google/photos";
+// import gphotos from "../../services/google/photos";
+import {getImageUrl} from '../../services/picsum';
 
-const BACKGROUND_ALBUM_ID = process.env.PREACT_BACKGROUND_ALBUM_ID;
+const BACKGROUND_ALBUM_ID = process.env.PREACT_APP_BACKGROUND_ALBUM_ID; //=NKcxRYKcuDrH1XeT6
 class Home extends Component {
 
 	state = {bg:''};
 
 	componentDidMount(){
-		gphotos.getAlbum(BACKGROUND_ALBUM_ID)
-			.then(bglist => {
-				return gphotos.getImageUrl(bglist[Math.floor(Math.random()*bglist.length)])
-			})
-			.then(bg => this.setState({bg}));
+    getImageUrl().then(bg => this.setState({bg}));
+		// gphotos.getAlbum(BACKGROUND_ALBUM_ID)
+		// 	.then(bglist => gphotos.getImageBlob(bglist[Math.floor(Math.random()*bglist.length)]))
+		// 	.then(bg => this.setState({bg}));
 	}
+
 	render() {
 		const {bg} = this.state;
 		return (

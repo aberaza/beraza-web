@@ -5,12 +5,13 @@ var _instance = null;
 var _authKey = null;
 var _gapi = null;
 var _authInstance = null;
-var _user = null;
+// var _user = null;
 
 class GoogleAuthService extends AuthProvider {
   
   static get instance(){ return _instance || new GoogleAuthService(); }
   
+  // eslint-disable-next-line no-undef
   constructor(key = process.env.PREACT_APP_GAPI_SECRET){
     if (_instance){
       return _instance;
@@ -42,6 +43,7 @@ class GoogleAuthService extends AuthProvider {
     console.log("GAPI INIT");
 
     /* DEBUG */
+    // eslint-disable-next-line no-undef
     if(process.env.PREACT_APP_DEV === "true") {
       this.addEventListener(AuthEvent.SIGNED_CHANGE, ()=> console.log("Google Auth notification of SIGNED_CHANGE"));
       this.addEventListener(AuthEvent.SIGNED_IN, ()=> console.log("Google Auth notification of SIGNED_IN"));
@@ -101,9 +103,9 @@ class GoogleAuthService extends AuthProvider {
   get gapi(){
     return _gapi;
   }
-
 }
-  
+
+
 const googleAuthService = new GoogleAuthService();
 export default googleAuthService;
 export { GoogleAuthService };

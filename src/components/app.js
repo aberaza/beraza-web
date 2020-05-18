@@ -10,8 +10,11 @@ import Header from './header/header.component';
 import Home from '../routes/home/home.component';
 import Overlay from './Overlay/overlay.component';
 
+  // eslint-disable-next-line no-undef
+const isDebug = process.env.PREACT_APP_DEV === "true";
+
 export default class App extends Component {
-  state = { debug : process.env.PREACT_APP_DEV === "true" };
+  state = { debug : isDebug };
 
   componentDidMount(){
     appAuthProvider.init([googleAuthService]);
@@ -25,7 +28,7 @@ export default class App extends Component {
 		this.currentUrl = e.url;
 		if(window.location){
       let searchParams = new URLSearchParams(window.location.search);
-      this.setState({...this.state, debug: (searchParams.has('debug') || process.env.PREACT_APP_DEV) });
+      this.setState({...this.state, debug: (searchParams.has('debug') || isDebug) });
     }
 	};
 
@@ -44,6 +47,9 @@ export default class App extends Component {
 							loading={() => <div>loading...</div>} />
 						<AsyncRoute path="/gallery"
 							getComponent={() => import('../routes/gallery').then(module => module.default)}
+							loading={() => <div>loading...</div>} />
+						<AsyncRoute path="/test"
+							getComponent={() => import('../routes/resume').then(module => module.default)}
 							loading={() => <div>loading...</div>} />
 					</Router>
 					{this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
