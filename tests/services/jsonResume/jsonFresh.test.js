@@ -1,5 +1,5 @@
 import { JsonFresh } from '/src/services/jsonResume/jsonFresh';
-import Resume, { Profile, Contact, Location, Social, Work, Skill, Education} from '/src/services/jsonResume';
+import Resume, { Profile, Contact, Location, Social, Work, Skill, Education} from '/src/services/jsonResume/Resume';
 
 import * as resume from './jane-fullstacker.fresh.json';
 
@@ -27,8 +27,6 @@ describe('JsonFresh Basic Tests', () => {
     expect(sets).toBeDefined();
     expect(sets[0]).toBeInstanceOf(Skill);
     expect(sets[0].skills[0]).toBeInstanceOf(Skill);
-    console.dir(sets[4])
-    console.dir(skill)
     
     expect(skill).toBeDefined();
     expect(skill[0]).toBeInstanceOf(Skill);
