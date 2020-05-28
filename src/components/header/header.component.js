@@ -13,10 +13,10 @@ const Header = () => (
 			<div class="dtc v-mid tr pa3">
 				<Link href="/" class="f5 fw5 hover-white no-underline white-70 dn dib-ns pv2 ph3">Home</Link>
 				<Link href="/gallery" class="f5 fw5 hover-white no-underline white-70 dn dib-ns pv2 ph3">Gallery</Link>
-				<Link href="/profile" class="f5 fw5 hover-white no-underline white-70 dn dib-ns pv2 ph3">Me</Link>
+				<Link href="/resume" class="f5 fw5 hover-white no-underline white-70 dn dib-ns pv2 ph3">Me</Link>
 				<UserWidgetConsumer />
 			</div>
-		</nav>
+    </nav>
 	</header>
 );
 

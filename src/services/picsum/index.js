@@ -1,12 +1,12 @@
+import { obj2query } from '../helpers';
 
 
-function obj2query(obj={}){
-  var keys = Object.keys(obj);
-  if(keys.length === 0){
-    return '';
-  }
-  return '?' + keys.map( k => obj[k] === true? k : (k + '=' + obj[k]) ).join('&');
-}
+  // var keys = Object.keys(obj);
+  // if(keys.length === 0){
+  //   return '';
+  // }
+  // return '?' + keys.map( k => obj[k] === true? k : (k + '=' + obj[k]) ).join('&');
+// }
 
 function idPath(id){
   return id? 'id/' + id + '/': '';
@@ -27,7 +27,7 @@ export function appendFilters(filters={}) {
 // grayscale, blur, blur=1 (entre 1 y 10)
   const filterString = filters.ext || '';
   delete(filters.ext);
-  return filterString + obj2query(filters);
+  return filterString + '?' + obj2query(filters);
 }
 
 /**
@@ -61,5 +61,5 @@ export function getImageUrl(w=window.innerWidth, h=window.innerHeight, id, seed,
  * @returns {Array<ImageDef>} list of images
  */
 export function getImagesList(opts) {
-  return fetch('https://picsum/photos/v2/list' + obj2query(opts));
+  return fetch('https://picsum/photos/v2/list?' + obj2query(opts));
 }

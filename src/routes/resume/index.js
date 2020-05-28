@@ -1,5 +1,6 @@
 import {h, Component } from 'preact';
 
+import { getResume } from '../../services/jsonResume';
 import { ParallaxContainer, ParallaxSection, ParallaxLayer, ParallaxImageLayer, ParallaxColorLayer} from '../../components/parallax';
 import ScrollBar from '../../components/scroll-bar';
 
@@ -7,8 +8,23 @@ export default class TestPage extends Component {
   // JSON RESUME sections
   // ['basics', 'skills', 'education', 'work', 'languages', 'volunteer', 'interests', 'references'
 
+  constructor(){
+    super();
+    this.state = {resume: {}, loading: true};
+  }
+  
+  componentDidMount(){
+    getResume()
+      .then(resume => this.setState({resume, loading:false}))
+      .then( () => console.log("resume route updated state:", this.state));
+  }
+  // const [resume, setResume] = useState({});
 
-  render ( props, state ) {
+  // useEffect(() =>{
+  //   getResume()
+  // })
+
+  renderResume(props, state){
     return ( 
       <div>
         <ScrollBar />
@@ -16,7 +32,7 @@ export default class TestPage extends Component {
           <ParallaxSection>
             <ParallaxColorLayer color="blue" />
             <ParallaxImageLayer image={state.bg1} />
-            <ParallaxLayer> Layer XX1: {state.bg1} </ParallaxLayer>
+            <ParallaxLayer> XXX {JSON.stringify(this.state.resume.profile)} </ParallaxLayer>
           </ParallaxSection>
           <ParallaxSection> 
             Section 2
@@ -27,6 +43,10 @@ export default class TestPage extends Component {
         </ParallaxContainer>
       </div>
     );
+
+  }
+  render ( props, state ) {
+    return this.state.loading? 'Loading ...' : this.renderResume(props, state);
   }
 }
 

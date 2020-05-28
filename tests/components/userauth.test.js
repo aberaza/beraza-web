@@ -9,7 +9,6 @@ import {AuthEvent} from '../../src/services/auth'
 var _isSignedIn, _userProfile;
 const FakeConsumer = () => {
   const c = useContext(Auth);
-  console.dir(c);
   _isSignedIn = c.isSignedIn; _userProfile = c.userProfile;
   return <div>{_isSignedIn}::{_userProfile} </div>;
 }

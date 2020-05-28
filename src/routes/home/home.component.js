@@ -28,9 +28,7 @@ class Home extends Component {
 						<h2 className="fw1 f3 white-80 mt3 mb4">
 							Telecom, Software and AI Engineer
 						</h2>
-						<a href="/" className="f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mb3">Contact</a>
-						<span className="dib v-mid ph3 white-70 mb3">or</span>
-						<a href="/" className="f6 no-underline grow dib v-mid white ba b--white ph3 pv2 mb3">email</a>
+            <a href="mailto:aritz.beraza@gmail.com?subject=Hi%20there" className="f6 no-underline grow dib v-mid white ba b--white ph3 pv2 mb3">email</a>
 					</div>
 				</div>
 			</div>
