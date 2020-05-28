@@ -20,7 +20,7 @@ class Home extends Component {
 		const {bg} = this.state;
 		return (
 			<div className="cover bg-left bg-center-l" style={{ backgroundImage: `url(${bg})` }}>
-				<div className="bg-black-80 pb5 pb6-m pb7-l">
+				<div className="bg-black-60 pb5 pb6-m pb7-l">
 					<div className="tc-l pa4 pa5-m pa6-l ph3">
 						<h1 className="f2 f1-l fw2 white-90 mb0 lh-title">
 							Beraza
