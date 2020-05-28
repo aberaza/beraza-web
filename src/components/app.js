@@ -49,7 +49,6 @@ export default class App extends Component {
               getComponent={() => import('../routes/gallery').then(module => module.default)}
               loading={() => <div>loading...</div>} />
           </Router>
-          {this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
         </div>
       </UserAuth>
     );
