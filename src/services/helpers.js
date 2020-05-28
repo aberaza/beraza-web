@@ -16,3 +16,7 @@ export function obj2query(obj={}){
   }
   return str.length > 0? '?' + str.join('&') : '';
 }
+
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
