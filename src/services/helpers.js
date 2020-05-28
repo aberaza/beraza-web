@@ -8,3 +8,15 @@ export function asyncLoad(url) {
     document.getElementsByTagName('head')[0].appendChild(loader);
   });
 }
+
+export function obj2query(obj={}){
+  let str = [];
+  for ( let [key, value] of Object.entries(obj)){
+    str.push(value === true? encodeURIComponent(key) : encodeURIComponent(key) + '=' + encodeURIComponent(value))
+  }
+  return str.length > 0? '?' + str.join('&') : '';
+}
+
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

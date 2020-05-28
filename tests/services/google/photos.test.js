@@ -38,8 +38,7 @@ describe('getAlbums API', () => {
   test("getAlbums fetches a list of albums", async () => {
     // eslint-disable-next-line no-global-assign
     fetch = jest.fn(() => Promise.resolve({ text: () => ("some text") }));
-    // eslint-disable-next-line no-unused-vars
-    const albums = await gphotos.getAlbums();
+    await gphotos.getAlbums();
     expect(fetch).toBeCalled();
   })
 });

@@ -27,7 +27,7 @@ export default class Profile extends Component {
 		clearInterval(this.timer);
 	}
 
-	// Note: `user` comes from the URL, courtesy of our router
+	// Note: `user` comes from the URL, courtesy of our routerq
 	render({ user }, { time, count }) {
 		return (
 			<div class={style.profile}>

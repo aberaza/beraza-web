@@ -4,12 +4,11 @@ import { shallow } from 'enzyme';
 
 
 import UserAuthProvider, { Auth } from '../../src/components/UserAuth.component';
-import { GoogleAuthService } from '../../src/services/auth';
+import {AuthEvent} from '../../src/services/auth'
 
 var _isSignedIn, _userProfile;
 const FakeConsumer = () => {
   const c = useContext(Auth);
-  console.dir(c);
   _isSignedIn = c.isSignedIn; _userProfile = c.userProfile;
   return <div>{_isSignedIn}::{_userProfile} </div>;
 }
@@ -82,7 +81,7 @@ describe("<UserAuthProvider /> Usage", () => {
     expect(authProviderMock.init).toHaveBeenCalled();
     expect(authProviderMock.addEventListener).toHaveBeenCalled();
     expect(listener).toBeDefined()
-    expect(eventName).toBe(GoogleAuthService.SIGNED_CHANGE);
+    expect(eventName).toBe(AuthEvent.SIGNED_CHANGE);
     listener();
   });
 });
