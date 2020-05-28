@@ -25,7 +25,6 @@ export default class TestPage extends Component {
   // })
 
   renderResume(props, state){
-    console.dir(this.state.resume.profile);
     return ( 
       <div>
         <ScrollBar />
