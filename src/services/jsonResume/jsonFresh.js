@@ -1,4 +1,4 @@
-import { Resume, Profile, Location, Contact, Social, Work, Skill, Education } from './index';
+import { Resume, Profile, Location, Contact, Social, Work, Skill, Education } from './Resume';
 
 const CONTACT_TYPES = ['email', 'phone', 'website'];
 

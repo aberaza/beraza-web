@@ -10,7 +10,7 @@ import Header from './header/header.component';
 import Home from '../routes/home/home.component';
 import Overlay from './Overlay/overlay.component';
 
-  // eslint-disable-next-line no-undef
+// eslint-disable-next-line no-undef
 const isDebug = process.env.PREACT_APP_DEV === "true";
 
 export default class App extends Component {
@@ -32,29 +32,26 @@ export default class App extends Component {
     }
 	};
 
-	render() {
-		return (
-			<UserAuth authService={appAuthProvider}>
-				<div id="app">
-					<Header />
-					<Router onChange={this.handleRoute}>
-						<Home default />
-						<AsyncRoute path="/profile" user="me"
-							getComponent={() => import('../routes/profile').then(module => module.default)}
-							loading={() => <div>loading...</div>} />
-						<AsyncRoute path="/profile/:id"
-							getComponent={() => import('../routes/profile').then(module => module.default)}
-							loading={() => <div>loading...</div>} />
-						<AsyncRoute path="/gallery"
-							getComponent={() => import('../routes/gallery').then(module => module.default)}
-							loading={() => <div>loading...</div>} />
-						<AsyncRoute path="/test"
-							getComponent={() => import('../routes/resume').then(module => module.default)}
-							loading={() => <div>loading...</div>} />
-					</Router>
-					{this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
-				</div>
-			</UserAuth>
-		);
+  render() {
+    return (
+      <UserAuth authService={appAuthProvider}>
+        <div id="app">
+          <Header />
+          <Router onChange={this.handleRoute}>
+            <Home default />
+            <AsyncRoute path="/resume" user="me"
+              getComponent={() => import('../routes/resume').then(module => module.default)}
+              loading={() => <div>loading...</div>} />
+            <AsyncRoute path="/profile/:id"
+              getComponent={() => import('../routes/profile').then(module => module.default)}
+              loading={() => <div>loading...</div>} />
+            <AsyncRoute path="/gallery"
+              getComponent={() => import('../routes/gallery').then(module => module.default)}
+              loading={() => <div>loading...</div>} />
+          </Router>
+          {this.state.debug ? '' : <Overlay>Work In Progress</Overlay> }
+        </div>
+      </UserAuth>
+    );
 	}
 }
