@@ -17,7 +17,7 @@ export class JsonFresh extends Resume {
 
   get contact() {
     return CONTACT_TYPES.map( 
-      type =>  new Contact({type, value: this.raw.basics[type]})
+      type =>  new Contact({type, value: this.raw.contact[type]})
     ).concat(
       this.raw.contact.other.map(c => new Contact(c) )
     );
@@ -45,6 +45,6 @@ export class JsonFresh extends Resume {
   }
 
   get education() {
-    return this.raw.education.map(study => new Education(study));
+    return this.raw.education.history.map(study => new Education(study));
   }
 }
