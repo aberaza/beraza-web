@@ -19,13 +19,13 @@ class Home extends Component {
 	render() {
 		const {bg} = this.state;
 		return (
-			<div className="cover bg-left bg-center-l" style={{ backgroundImage: `url(${bg})` }}>
-				<div className="bg-black-60 pb5 pb6-m pb7-l">
-					<div className="tc-l pa4 pa5-m pa6-l ph3">
-						<h1 className="f2 f1-l fw2 white-90 mb0 lh-title">
+			<div class="cover bg-left bg-center-l" style={{ backgroundImage: `url(${bg})` }}>
+				<div class="bg-black-60 v-mid dtc w-100 vh-100 flex items-center justify-start justify-center-l">
+          <div class="tc-l ph3" >
+						<h1 class="f2 f1-l fw2 white-90 mb0 lh-title">
 							Beraza
 						</h1>
-						<h2 className="fw1 f3 white-80 mt3 mb4">
+						<h2 class="fw1 f3 white-80 mt3 mb4">
 							Telecom, Software and AI Engineer
 						</h2>
             <a href="mailto:aritz.beraza@gmail.com?subject=Hi%20there" className="f6 no-underline grow dib v-mid white ba b--white ph3 pv2 mb3">email</a>

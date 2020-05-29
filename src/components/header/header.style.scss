@@ -1,0 +1,14 @@
+@mixin backdrop-blur ($rgb1, $rgb2, $rgb3, $rgb4){
+  background-color: rgba($rgb1, $rgb2, $rgb3, $rgb4);
+  @supports (backdrop-filter: none){
+    & {
+      background-color: rgba($rgb1, $rgb2, $rgb3, $rgb4*0.6);
+      backdrop-filter: blur(5px);
+    }
+  }
+}
+
+
+.blurry {
+  @include backdrop-blur(0, 0, 0, .8);
+}
