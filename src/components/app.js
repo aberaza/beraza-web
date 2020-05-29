@@ -8,7 +8,8 @@ import appAuthProvider from '../services/auth';
 import UserAuth from './UserAuth.component';
 import Header from './header/header.component';
 import Home from '../routes/home/home.component';
-import Overlay from './Overlay/overlay.component';
+import Footer from './footer/footer.component';
+// import Overlay from './Overlay/overlay.component';
 
 // eslint-disable-next-line no-undef
 const isDebug = process.env.PREACT_APP_DEV === "true";
@@ -49,6 +50,7 @@ export default class App extends Component {
               getComponent={() => import('../routes/gallery').then(module => module.default)}
               loading={() => <div>loading...</div>} />
           </Router>
+          <Footer />
         </div>
       </UserAuth>
     );
