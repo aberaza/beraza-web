@@ -38,8 +38,8 @@ export class JsonFresh extends Resume {
 
   get skills(){
     return { 
-      skill : this.raw.skills.list.map(skill => new Skill(skill)),
-      sets : this.raw.skills.sets.map(set => new Skill(set))
+      skill : (this.raw.skills.list || []).map(skill => new Skill(skill)),
+      sets : (this.raw.skills.sets || []).map(set => new Skill(set))
     };
     //Skill gives individual extra information about individual skills on any set
   }

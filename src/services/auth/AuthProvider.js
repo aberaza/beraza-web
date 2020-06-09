@@ -4,12 +4,6 @@
  * @param {string} [{}.name=AuthProvider.PROVIDER_NAME] name of the auth provider instance  
  * @param {string} [{}.key] API key to be used to identify in API provider
  */
-
-var coche = { casa: 'hola' };
-
-console.log(coche['casa'
-])
-
 export default class AuthProvider extends EventTarget {
 
 
@@ -49,7 +43,7 @@ export default class AuthProvider extends EventTarget {
    * Method to be called to de-register AuthProvider listener
    * @Param {Object} Listener to unregister
    */
-  unregister(listener) {
+  unregister() {
     return Promise.reject("unregister not implemented");
   }
 

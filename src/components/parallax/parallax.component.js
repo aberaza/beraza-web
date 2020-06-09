@@ -23,7 +23,7 @@ export class ParallaxContainer extends Component {
     }
     return (
       <div class={style.parallaxContainer}>
-        {props.chidren}
+        {props.children}
       </div>
     );
   }

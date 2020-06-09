@@ -1,5 +1,5 @@
 import {h} from 'preact';
-import {useState} from 'preact/hooks';
+import {useState, useEffect} from 'preact/hooks';
 
 import style from './scroll-bar.style.scss';
 /*
@@ -20,7 +20,8 @@ function registerScrollListener(cb){
 
 export default function ScrollBar(){
   const [scroll, setScroll] = useState(0);
-  registerScrollListener(setScroll);
+  useEffect(() => registerScrollListener(setScroll));
+  // registerScrollListener(setScroll);
 
   return <div class={style['scroll-bar']} ><ProgressBar progress={scroll} /></div>;
 }

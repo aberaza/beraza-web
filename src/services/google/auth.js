@@ -40,7 +40,6 @@ class GoogleAuthService extends AuthProvider {
     if( _gapi ) {
       return console.warn("Already Initialized");
     }
-    console.log("GAPI INIT");
 
     /* DEBUG */
     // eslint-disable-next-line no-undef
@@ -69,12 +68,12 @@ class GoogleAuthService extends AuthProvider {
   };
   
   _handleOnLogIn = () => {
-    console.log("LOGED IN ", this.userProfile);
+    console.info("LOGED IN ", this.userProfile);
     this.dispatchEvent(AuthEvent.SignedIn(this, {detail:this.userProfile}));
   };
 
   _handleOnLogOut = () => {
-    console.log("LOGED OUT");
+    console.info("LOGED OUT");
     this.dispatchEvent(AuthEvent.SignedOut(this));
   };
 

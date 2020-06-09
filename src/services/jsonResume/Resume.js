@@ -18,6 +18,7 @@ export class Profile{
 
 export class Location{
   constructor({address, postalCode, code, city, country, countryCode, region, label} = {label: "Main Address"}){
+    this.label = label;
     this.addres = address;
     this.postalCode = postalCode||code;
     this.city = city;
@@ -73,6 +74,7 @@ export class Skill {
     let subskills = skills||keywords;
 
     that.name = name;
+    that.key = key;
     that.level = level;
     that.summary = summary;
     that.skills = subskills? subskills.map(Skill.getSkillByName) : null ;
