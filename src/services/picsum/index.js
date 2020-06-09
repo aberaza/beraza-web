@@ -1,13 +1,5 @@
 import { obj2query } from '../helpers';
 
-
-  // var keys = Object.keys(obj);
-  // if(keys.length === 0){
-  //   return '';
-  // }
-  // return '?' + keys.map( k => obj[k] === true? k : (k + '=' + obj[k]) ).join('&');
-// }
-
 function idPath(id){
   return id? 'id/' + id + '/': '';
 }
@@ -20,7 +12,7 @@ function seedPath(seed){
  * Returns query string for specified filters
  * @param {string} [filters.ext] Either 'jpeg' or 'webp'
  * @param {boolean} [grayscale] Set to true to enable filter
- * @param {boolean|number} [blut] Set to true to enable, or for finer effect grade, to a value between 1 - 10
+ * @param {boolean|number} [blur] Set to true to enable, or for finer effect grade, to a value between 1 - 10
  * @return {string} formattedQueryString
  */
 export function appendFilters(filters={}) {
